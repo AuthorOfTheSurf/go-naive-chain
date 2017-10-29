@@ -18,5 +18,5 @@ var genesisBlock = bc.NewBlock(
 
 func main() {
 	goNaiveChain := bc.NewBlockChain("Go Naive Chain", genesisBlock)
-	fmt.Printf("%s %#v", goNaiveChain.ChainName(), goNaiveChain.Blocks())
+	fmt.Printf("%s %#v", goNaiveChain.ChainName(), goNaiveChain.GetLatestBlock())
 }
