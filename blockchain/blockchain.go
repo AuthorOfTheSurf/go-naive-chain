@@ -1,8 +1,7 @@
-package main
+package blockchain
 
 import (
 	"crypto/sha256"
-	"fmt"
 	"time"
 )
 
@@ -17,6 +16,10 @@ type Block struct {
 type BlockChain struct {
 	chainName string
 	blocks    []Block
+}
+
+func (b *BlockChain) ChainName() string {
+	return b.chainName
 }
 
 func (b *BlockChain) Blocks() []Block {
@@ -35,6 +38,6 @@ var goNaiveChain = BlockChain{
 	blocks:    []Block{genesisBlock},
 }
 
-func main() {
-	fmt.Printf("%s %#v", goNaiveChain.chainName, goNaiveChain.Blocks())
+func GetBlockChain() *BlockChain {
+	return &goNaiveChain
 }
