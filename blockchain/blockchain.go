@@ -2,7 +2,6 @@ package blockchain
 
 import (
 	"crypto/sha256"
-	"time"
 )
 
 type Block struct {
@@ -13,31 +12,38 @@ type Block struct {
 	hash         [sha256.Size]byte
 }
 
+func NewBlock(
+	index int,
+	previousHash [sha256.Size]byte,
+	timestamp int64,
+	data string,
+	hash [sha256.Size]byte,
+) Block {
+	return Block{
+		index,
+		previousHash,
+		timestamp,
+		data,
+		hash,
+	}
+}
+
 type BlockChain struct {
 	chainName string
 	blocks    []Block
 }
 
-func (b *BlockChain) ChainName() string {
-	return b.chainName
+func (bc *BlockChain) ChainName() string {
+	return bc.chainName
 }
 
-func (b *BlockChain) Blocks() []Block {
-	return b.blocks
+func (bc *BlockChain) Blocks() []Block {
+	return bc.blocks
 }
 
-var genesisBlock = Block{
-	index:        0,
-	previousHash: sha256.Sum256([]byte("0")),
-	timestamp:    time.Now().Unix(),
-	data:         "The freedom to create coins",
-	hash:         sha256.Sum256([]byte("Twitter 28/Oct/2017 Dodgers break it open in the ninth inning of Game 4")),
-}
-var goNaiveChain = BlockChain{
-	chainName: "Go Naive Chain",
-	blocks:    []Block{genesisBlock},
-}
-
-func GetBlockChain() *BlockChain {
-	return &goNaiveChain
+func NewBlockChain(chainName string, genesisBlock Block) BlockChain {
+	return BlockChain{
+		chainName,
+		[]Block{genesisBlock},
+	}
 }
